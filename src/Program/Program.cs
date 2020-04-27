@@ -4,7 +4,6 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-using System;
 using System.Collections;
 using System.Linq;
 using Full_GRASP_And_SOLID.Library;
@@ -26,9 +25,15 @@ namespace Full_GRASP_And_SOLID
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
 
-            AllInOnePrinter printer = new AllInOnePrinter();
-            printer.PrintRecipe(recipe, Destination.Console);
-            printer.PrintRecipe(recipe, Destination.File);
+            // Se instancian dos objetos de tipo IPrinter con las dos distintas
+            // clases creadas. Luego se las llama de la misma forma obteniendo
+            // distintos resultados. Todos ellos, esperados sin interferir.
+            // Se concluye que se definió exitosamente la operación polimórfica.
+
+            IPrinter printer1 = new ConsolePrinter();
+            IPrinter printer2 = new FilePrinter();
+            printer1.PrintRecipe(recipe);
+            printer2.PrintRecipe(recipe);
         }
 
         private static void PopulateCatalogs()
